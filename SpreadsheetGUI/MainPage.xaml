@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:SS="clr-namespace:SS"
+             x:Class="SpreadsheetGUI.MainPage">
+
+    <!--
+        - MenuBarItem: menu items on the top
+        - MenuFlyoutItem: sub tags of a menu item
+    -->
+    <ContentPage.MenuBarItems>
+        <MenuBarItem Text="File" >
+            <MenuFlyoutItem Text="New" Clicked="NewClicked"/>
+            <MenuFlyoutItem Text="Save" Clicked="SaveClicked" />
+            <MenuFlyoutItem Text="Save As" Clicked="SaveAsClicked" />
+            <MenuFlyoutItem Text="Open" Clicked="OpenClicked" />
+        </MenuBarItem>
+
+        <MenuBarItem Text="Help" >
+            <MenuFlyoutItem Text="View Help" Clicked="HelpClicked" />
+        </MenuBarItem>
+
+    </ContentPage.MenuBarItems>
+
+    <!--OuterGrid
+        - 2X1 grid layout
+        - Row 1: Property display section with multiple labels and entry boxes in it.
+        - Row 2: Spreadsheet area, where users can select a cell by clicking on it.
+    -->
+    <Grid
+        x:Name="OuterGrid"
+         Padding="10"
+         Margin="5">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!--InnerGrid:Row 1 of OuterGrid
+            - 1X10 grid layout
+            - Columns hold elements starting from an empty element to Save status label to File path display.
+        -->
+        <Grid
+            x:Name="InnerGrid"
+            Grid.Row ="0"
+            Grid.Column="0"
+            Padding="10"
+            Margin="10">
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="500"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Save status display-->
+            <Label
+                x:Name="Save_Status_Label"
+                Grid.Column="1"
+                HorizontalOptions="Start"
+                VerticalOptions="Center"
+                Text="Saved"
+                TextColor="Green"
+                FontSize="25" 
+                FontFamily="BlackMarker"/>
+
+
+            <!--Name label-->
+            <Label 
+                Grid.Column="2"
+                HorizontalOptions="Start"
+                VerticalOptions="Center"
+                Text="Name:" 
+                FontSize="20" 
+                FontFamily="TimesNewRomanBoldItalic"/>
+
+            <!--Name entry-->
+            <Entry 
+                Grid.Column="3"
+                x:Name="nameField"
+                IsReadOnly="true"
+                FontSize="15"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Center" 
+                Margin="0,0,50,0"
+                BackgroundColor="White"/>
+
+            <!--Value label-->
+            <Label 
+                Grid.Column="4"
+                HorizontalOptions="Start"
+                VerticalOptions="Center"
+                Text="Value:" 
+                FontSize="20" 
+                FontFamily="TimesNewRomanBoldItalic"/>
+
+            <!--Value entry-->
+            <Entry 
+                Grid.Column="5"
+                x:Name="valueField"
+                Text=""
+                IsReadOnly="true" 
+                FontSize="15"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Center"
+                Margin="0,0,50,0"
+                BackgroundColor="White"/>
+
+            <!--Content label-->
+            <Label 
+                Grid.Column="6"
+                HorizontalOptions="Start"
+                VerticalOptions="Center"
+                Text="Content:" 
+                FontSize="20" 
+                FontFamily="TimesNewRomanBoldItalic"/>
+
+            <!--Content entry-->
+            <Entry 
+                Grid.Column="7"
+                x:Name="contentEntry"
+                FontSize="15"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Center"          
+                ClearButtonVisibility="WhileEditing"
+                Placeholder="Edit cell content"
+                Completed="Entry_Completed"
+                BackgroundColor="White"
+                Margin="0,0,50,0"/>
+
+            <!--Content label-->
+            <Label 
+                Grid.Column="8"
+                HorizontalOptions="Start"
+                VerticalOptions="Center"
+                Text="File Path:" 
+                FontSize="20" 
+                FontFamily="TimesNewRomanBoldItalic"/>
+
+            <!--Content entry-->
+            <Entry 
+                Grid.Column="9"
+                x:Name="FilePathEntry"
+                FontSize="15"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Center"          
+                Placeholder="Path"
+                IsReadOnly="True"
+                BackgroundColor="White"
+                Margin="0,0,50,0"/>
+        </Grid>
+
+        <!--Spreadsheet: Row 2 of OuterGrid-->
+        <Grid
+            Grid.Row ="1"
+            Grid.Column="0">
+            <SS:SpreadsheetGrid x:Name="spreadsheetGrid" />
+        </Grid>
+
+    </Grid>
+</ContentPage>
+
